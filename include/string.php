@@ -1,4 +1,4 @@
 <?php
-$title = 'Pun_idea_plus';
+$title = 'Pun idea plus';
 $project_name = "Pun_idea_plus";
 ?>

@@ -28,7 +28,8 @@
 
 <!--  material -->
 <link href="css/roboto.min.css" rel="stylesheet">
-<link href="css/material-fullpalette.min.css" rel="stylesheet">
+<!-- <link href="css/material-fullpalette.min.css" rel="stylesheet"> -->
+<link href="css/bootstrap-material-design.css" rel="stylesheet">
 <link href="css/ripples.min.css" rel="stylesheet">
 <script src="js/ripples.min.js"></script>
 <script src="js/material.min.js"></script>
