@@ -1,22 +1,16 @@
-<?php include "include/db_connect_oo.php" ?>
-<?php include "include.php" ?>
-<?php requireSignin(false); ?>
+<?php include "include/include_pre.php" ?>
+<?php
+  requireSignin(false);
+  // requireLevel(100);
+?>
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 <head>
-  <?php include "include_head.php" ?>
-  <title>Sign in</title>
+  <?php include 'include/include_head.php'; ?>
 
-  <script>
-    $(document).ready(function() {
-      // This command is used to initialize some elements and make them work properly
-      $.material.init();
-
-    });
-  </script>
+  <title><?php echo $s_title; ?></title>
 </head>
 <body>
-  <?php include_once("include/analyticstracking.php") ?>
   <div class="container">
 
     <div class="row">
@@ -29,17 +23,17 @@
               <fieldset>
                 <legend>
                   <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
-                  Sign in
+                  <?php echo $s_title; ?>
                 </legend>
                 <div class="form-group">
-                  <label for="inputEmail" class="col-md-2 control-label">Email</label>
+                  <label for="inputEmail" class="col-md-2 control-label"><?php echo $s_email; ?></label>
 
                   <div class="col-md-10">
                     <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Email">
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="inputPassword" class="col-md-2 control-label">Password</label>
+                  <label for="inputPassword" class="col-md-2 control-label"><?php echo $s_password; ?></label>
 
                   <div class="col-md-10">
                     <input type="password" class="form-control" id="inputPassword" name="inputPassword" placeholder="Password">
@@ -49,8 +43,8 @@
 
                 <div class="form-group">
                   <div class="col-md-10 col-md-offset-2 text-right">
-                    <button type="button" class="btn btn-default">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-default"><?php echo $s_cancel; ?></button>
+                    <button type="submit" class="btn btn-primary"><?php echo $s_sign_in; ?></button>
                   </div>
                 </div>
               </fieldset>

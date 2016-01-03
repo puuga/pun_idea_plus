@@ -1,45 +1,71 @@
-<?php include "include/db_connect_oo.php" ?>
-<?php include "include.php" ?>
+<?php include "include/include_pre.php" ?>
 <?php
   requireSignin(TRUE);
   requireLevel(0);
+  $conn = connect_db($db_server, $db_username, $db_password, $db_dbname);
 ?>
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 <head>
-  <?php include "include_head.php" ?>
+  <?php include "include/include_head.php" ?>
   <title>Admin</title>
 
-  <script>
-    $(document).ready(function() {
-      // This command is used to initialize some elements and make them work properly
-      $.material.init();
-
-    });
-  </script>
 </head>
 <body>
-  <?php include "include_body.php" ?>
+  <?php include "include/include_body.php" ?>
   <div class="container">
     <h1>
       User
       <button type="button" class="btn btn-raised btn-info" data-toggle="modal" data-target="#addUserModal">Add User</a>
     </h1>
+    <?php
+      $users = getUsers($conn);
+      $normal_users = getUsers($conn,'normal');
+      $admin_users = getUsers($conn,'admin');
+    ?>
+
+    <?php
+    if ( isset($_GET["success"]) ) {
+      if ( $_GET["success"]=="true" ) {
+        ?>
+        <div class="row">
+          <div class="alert alert-success" role="alert">
+            Add user success.
+          </div>
+        </div>
+        <?php
+      }
+    }
+    ?>
 
     <div class="row">
 
       <div class="col-lg-6">
         <div class="panel panel-info">
           <div class="panel-heading">
-            <h3 class="panel-title">Admin</h3>
+            <h3 class="panel-title">Admin User</h3>
           </div>
           <div class="panel-body">
-            <?php
-              $users = getUsers($conn, 'admin');
-              foreach ($users as $user) {
-                echo "$user[name], $user[email]<br>";
-              }
-            ?>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>name</th>
+                  <th>email</th>
+                  <th>password</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                for ($i=0; $i < count($admin_users); $i++) {
+                  echo "<tr>";
+                  echo "<td>".$admin_users[$i]["name"]."</td>";
+                  echo "<td>".$admin_users[$i]["email"]."</td>";
+                  echo "<td>".$admin_users[$i]["password"]."</td>";
+                  echo "</tr>";
+                }
+                ?>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -47,15 +73,29 @@
       <div class="col-lg-6">
         <div class="panel panel-info">
           <div class="panel-heading">
-            <h3 class="panel-title">Normal</h3>
+            <h3 class="panel-title">Normal User</h3>
           </div>
           <div class="panel-body">
-            <?php
-              $users = getUsers($conn, 'normal');
-              foreach ($users as $user) {
-                echo "$user[name], $user[email]<br>";
-              }
-            ?>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>name</th>
+                  <th>email</th>
+                  <th>password</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                for ($i=0; $i < count($normal_users); $i++) {
+                  echo "<tr>";
+                  echo "<td>".$normal_users[$i]["name"]."</td>";
+                  echo "<td>".$normal_users[$i]["email"]."</td>";
+                  echo "<td>".$normal_users[$i]["password"]."</td>";
+                  echo "</tr>";
+                }
+                ?>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

@@ -1,11 +1,12 @@
-<?php include "include/db_connect_oo.php" ?>
-<?php include "include.php" ?>
+<?php include "include/include_pre.php" ?>
 <?php
   // Start the session
   // session_start();
 
   // echo $_POST["inputEmail"]."<br/>";
   // echo $_POST["inputPassword"]."<br/>";
+
+  $conn = connect_db($db_server, $db_username, $db_password, $db_dbname);
 
   $input_email = $_POST["inputEmail"];
   $input_password = $_POST["inputPassword"];
