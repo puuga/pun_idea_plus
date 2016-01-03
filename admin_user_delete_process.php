@@ -10,12 +10,13 @@
   // echo $_POST["inputPassword"];
   // echo $_POST["optionsPermission"];
 
-  $sql = "INSERT INTO users (name, email, password, level, created_at, updated_at)
-          VALUES ('$_POST[inputName]', '$_POST[inputEmail]', '$_POST[inputPassword]', $_POST[optionsPermission], now(), now() )";
+  // die();
+  $sql = "DELETE FROM users
+          WHERE id=$_GET[id];";
 
   // echo $sql;
   if ($conn->query($sql) === TRUE) {
-    header("Location: admin_users_view.php?success=true&command=add");
+    header("Location: admin_users_view.php?success=true&command=delete");
     die();
   } else {
       // echo "Error: " . $sql . "<br>" . $conn->error;

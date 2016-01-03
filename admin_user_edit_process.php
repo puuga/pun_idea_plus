@@ -10,12 +10,17 @@
   // echo $_POST["inputPassword"];
   // echo $_POST["optionsPermission"];
 
-  $sql = "INSERT INTO users (name, email, password, level, created_at, updated_at)
-          VALUES ('$_POST[inputName]', '$_POST[inputEmail]', '$_POST[inputPassword]', $_POST[optionsPermission], now(), now() )";
+  $sql = "UPDATE users
+          SET name='$_POST[inputName]',
+            email='$_POST[inputEmail]',
+            password='$_POST[inputPassword]',
+            level='$_POST[optionsPermission]',
+            updated_at=now()
+          WHERE id=$_POST[inputIdEdit];";
 
   // echo $sql;
   if ($conn->query($sql) === TRUE) {
-    header("Location: admin_users_view.php?success=true&command=add");
+    header("Location: admin_users_view.php?success=true&command=edit");
     die();
   } else {
       // echo "Error: " . $sql . "<br>" . $conn->error;
