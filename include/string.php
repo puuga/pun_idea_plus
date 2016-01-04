@@ -6,4 +6,5 @@ $s_sign_out = "ออกจากระบบ";
 $s_cancel = "ยกเลิก";
 $s_email = "Email";
 $s_password = "Password";
+$s_dashboard = "Dashboard"
 ?>

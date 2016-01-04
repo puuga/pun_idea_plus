@@ -16,7 +16,9 @@
   <div class="container">
     <h1>
       User
-      <button type="button" class="btn btn-raised btn-info" data-toggle="modal" data-target="#addUserModal">Add User</a>
+      <button type="button" class="btn btn-raised btn-info" data-toggle="modal" data-target="#addUserModal">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add User
+      </button>
     </h1>
     <?php
       $users = getUsers($conn);

@@ -14,6 +14,17 @@ function getUserLevel() {
   return isset($_SESSION["user_level"]) ? $_SESSION["user_level"] : 1000;
 }
 
+function getCurrentUser() {
+  $user = new stdClass();
+  $user->name = $_SESSION["user_name"];
+  $user->email = $_SESSION["user_email"];
+  $user->password = $_SESSION["user_password"];
+  $user->user_level = $_SESSION["user_level"];
+  $user->user_level_name = $_SESSION["user_level"]=="0" ? "Admin" : "Normal";
+
+  return $user;
+}
+
 function requireSignin($bool) {
   if ( $bool && !isSignin() ) {
     header("Location: sign_in_form.php?message=require signined");

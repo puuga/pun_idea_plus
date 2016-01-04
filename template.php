@@ -2,13 +2,14 @@
 <?php
   requireSignin(false);
   // requireLevel(100);
+  // $conn = connect_db($db_server, $db_username, $db_password, $db_dbname);
 ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <?php include 'include/include_head.php'; ?>
 
-    <title><?php echo $s_title; ?></title>
+    <title><?= $s_title; ?></title>
 
   </head>
   <body>

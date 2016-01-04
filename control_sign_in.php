@@ -15,10 +15,13 @@
   $result = $conn->query($sql);
   if ( $result->num_rows == 1 ) {
     while($row = $result->fetch_assoc()) {
-        $user_level = $row["level"];
+      $user_name = $row["name"];
+      $user_level = $row["level"];
     }
     $_SESSION["user_is_signin"] = true;
-    $_SESSION["user_email"] = $_POST["inputEmail"];
+    $_SESSION["user_name"] = $user_name;
+    $_SESSION["user_email"] = $input_email;
+    $_SESSION["user_password"] = $input_password;
     $_SESSION["user_level"] = $user_level;
     header("Location: index.php");
     die();
