@@ -35,4 +35,34 @@
     $data = htmlspecialchars($data);
     return $data;
   }
+
+  function getProducts($conn, $option='all') {
+    $products = [];
+
+    switch ($option) {
+      case 'all':
+        $sql = "SELECT * FROM products";
+        break;
+      case 'active':
+        $sql = "SELECT * FROM products WHERE is_active=1";
+        break;
+      case 'inactive':
+        $sql = "SELECT * FROM products WHERE is_active=0";
+        break;
+      default:
+        return $products;
+        break;
+    }
+
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+      // output data of each row
+      while($row = $result->fetch_assoc()) {
+          // echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
+          $products[] = $row;
+      }
+    }
+
+    return $products;
+  }
 ?>

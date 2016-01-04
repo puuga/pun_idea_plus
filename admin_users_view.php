@@ -8,16 +8,17 @@
 <html lang="en">
 <head>
   <?php include "include/include_head.php" ?>
-  <title>Admin</title>
+  <title><?= $s_user_dashboard;?></title>
 
 </head>
 <body>
   <?php include "include/include_body.php" ?>
   <div class="container">
     <h1>
-      User
-      <button type="button" class="btn btn-raised btn-info" data-toggle="modal" data-target="#addUserModal">
-        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add User
+      <?= $s_user_dashboard;?>
+      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addUserModal">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 
+        <?= $s_add_user; ?>
       </button>
     </h1>
     <?php

@@ -17,13 +17,19 @@
 
       <ul class="nav navbar-nav">
         <li>
-          <a href="home.php"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a>
+          <a href="home.php">
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home
+          </a>
         </li>
         <li>
-          <a href="sale.php"><span class="glyphicon glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Sale</a>
+          <a href="sale.php">
+            <span class="glyphicon glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Sale
+          </a>
         </li>
         <li>
-          <a href="shipping.php"><span class="glyphicon glyphicon glyphicon-send" aria-hidden="true"></span> Shipping</a>
+          <a href="shipping.php">
+            <span class="glyphicon glyphicon glyphicon-send" aria-hidden="true"></span> Shipping
+          </a>
         </li>
         <?php if ( getUserLevel()==0 ) { ?>
         <li class="dropdown">
@@ -32,13 +38,19 @@
           </a>
           <ul class="dropdown-menu">
             <li>
-              <a href="admin.php"><span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> Admin Dashboard</a>
+              <a href="admin.php">
+                <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> Admin Dashboard
+              </a>
             </li>
             <li>
-              <a href="admin_users_view.php"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> User Dashboard</a>
+              <a href="admin_users_view.php">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> User Dashboard
+              </a>
             </li>
             <li>
-              <a href="#"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Product Dashboard</a>
+              <a href="admin_products_view.php">
+                <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Product Dashboard
+              </a>
             </li>
           </ul>
         </li>
