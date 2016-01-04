@@ -73,6 +73,22 @@
           </div>
         </div>
         <?php
+      } elseif ( $_GET["success"]=="false" && $_GET["command"]=="add" && $_GET["reason"]=="duplicate") {
+        ?>
+        <div class="row">
+          <div class="alert alert-danger" role="alert">
+            Duplicate e-mail.
+          </div>
+        </div>
+        <?php
+      } elseif ( $_GET["success"]=="false" && $_GET["command"]=="edit" && $_GET["reason"]=="duplicate") {
+        ?>
+        <div class="row">
+          <div class="alert alert-danger" role="alert">
+            Duplicate e-mail.
+          </div>
+        </div>
+        <?php
       }
     }
     ?>
@@ -162,6 +178,7 @@
         </div>
         <div class="modal-body">
           <form action="admin_user_add_process.php" method="post" class="form-horizontal" name="addUser" id="addUser">
+            <input type="hidden" name="source" value="admin_users_view.php">
 
             <div class="form-group">
               <label for="inputName" class="col-md-2 control-label">Name</label>
@@ -222,6 +239,7 @@
         <div class="modal-body">
           <form action="admin_user_edit_process.php" method="post" class="form-horizontal" name="editUser" id="editUser">
             <input type="hidden" name="inputIdEdit" id="inputIdEdit" value="">
+            <input type="hidden" name="source" value="admin_users_view.php">
 
             <div class="form-group">
               <label for="inputName" class="col-md-2 control-label">Name</label>

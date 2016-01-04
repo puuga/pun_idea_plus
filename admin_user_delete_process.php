@@ -5,14 +5,16 @@
   $conn = connect_db($db_server, $db_username, $db_password, $db_dbname);
 ?>
 <?php
-  // echo $_POST["inputName"];
-  // echo $_POST["inputEmail"];
-  // echo $_POST["inputPassword"];
-  // echo $_POST["optionsPermission"];
+  // define variables and set to empty values
+  $inputId = "";
+
+  if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    $inputId = testInput($_GET["id"]);
+  }
 
   // die();
   $sql = "DELETE FROM users
-          WHERE id=$_GET[id];";
+          WHERE id=$inputId;";
 
   // echo $sql;
   if ($conn->query($sql) === TRUE) {
