@@ -65,4 +65,32 @@
 
     return $products;
   }
+
+  function getProductById($conn, $id) {
+
+    $sql = "SELECT * FROM products WHERE id=$id;";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+      // output data of each row
+      while($row = $result->fetch_assoc()) {
+          // echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
+          $product = $row;
+      }
+    }
+
+    $product_photos = [];
+    $sql = "SELECT * FROM product_photos WHERE product_id=$id;";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+      // output data of each row
+      while($row = $result->fetch_assoc()) {
+          // echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
+          $product_photos[] = $row;
+      }
+    }
+
+    $product["photos"] = $product_photos;
+
+    return $product;
+  }
 ?>

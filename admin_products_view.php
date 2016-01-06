@@ -27,6 +27,15 @@
         $active_products = getProducts($conn,'active');
         $inactive_products = getProducts($conn,'inactive');
 
+        function makeProductByIdButton($product) {
+          $button = "<a role='button' class='btn btn-info' ";
+          $button .= "href='admin_product_view.php?id=$product[id]'> ";
+          $button .= "<span class='glyphicon glyphicon-th-list' aria-hidden='true'></span>";
+          $button .= "</a>";
+
+          return $button;
+        }
+
         function makeProductEditButton($product) {
           $button = "<button type='button' class='btn btn-warning' ";
           $button .= "data-toggle='modal' data-target='#editProductModal' ";
@@ -109,6 +118,7 @@
                     echo "<td class='text-right'>".$active_product["price"]."</td>";
                     echo "<td>".$active_product["unit"]."</td>";
                     echo "<td>";
+                    echo makeProductByIdButton($active_product)." ";
                     echo makeProductEditButton($active_product)." ";
                     echo makeProductDeleteButton($active_product);
                     echo "</td>";
@@ -146,6 +156,7 @@
                     echo "<td class='text-right'>".$inactive_product["price"]."</td>";
                     echo "<td>".$inactive_product["unit"]."</td>";
                     echo "<td>";
+                    echo makeProductByIdButton($inactive_product)." ";
                     echo makeProductEditButton($inactive_product)." ";
                     echo makeProductDeleteButton($inactive_product);
                     echo "</td>";
