@@ -75,6 +75,15 @@
 
         <p>
           <dl class="dl-horizontal">
+            <dt>barcode</dt>
+            <dd>
+              <img src="barcode/sample-gd.php?code=<?= $product["barcode"]; ?>" alt="<?= $product["barcode"]; ?>" />
+            </dd>
+          </dl>
+        </p>
+
+        <p>
+          <dl class="dl-horizontal">
             <dt>photos</dt>
             <dd>
               <?php foreach ($product["photos"] as $photo) { ?>

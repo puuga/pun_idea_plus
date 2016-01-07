@@ -14,10 +14,11 @@
     $inputPrice = testInput($_POST["inputPrice"]);
     $inputUnit = testInput($_POST["inputUnit"]);
     $optionsActive = testInput($_POST["optionsActive"]);
+    $barcode = "P".date("YmdHis");
   }
 
-  $sql = "INSERT INTO products (name, price, unit, type, is_active, created_at, updated_at)
-          VALUES ('$inputName', $inputPrice, '$inputUnit', '$inputType', $optionsActive, now(), now() )";
+  $sql = "INSERT INTO products (name, price, unit, type, is_active, barcode, created_at, updated_at)
+          VALUES ('$inputName', $inputPrice, '$inputUnit', '$inputType', $optionsActive, '$barcode', now(), now() )";
 
   // echo $sql;
   if ($conn->query($sql) === TRUE) {
