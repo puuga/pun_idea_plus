@@ -50,6 +50,7 @@
   //                        HRI
   // -------------------------------------------------- //
   if ( isset($font) ){
+    putenv('GDFONTPATH=' . realpath('.'));
     $box = imagettfbbox($fontSize, 0, $font, $data['hri']);
     $len = $box[2] - $box[0];
     Barcode::rotate(-$len / 2, ($data['height'] / 2) + $fontSize + $marge, $angle, $xt, $yt);
