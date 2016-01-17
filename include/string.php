@@ -14,4 +14,6 @@ $s_add_product = "Add Product";
 $s_edit_product = "Edit Product";
 $s_add_user = "Add User";
 $s_edit_user = "Edit User";
+$s_customer_dashboard = "Customer Dashboard";
+$s_add_customer = "Add Customer";
 ?>

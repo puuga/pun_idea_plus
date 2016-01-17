@@ -52,6 +52,11 @@
                 <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Product Dashboard
               </a>
             </li>
+            <li>
+              <a href="admin_customers_view.php">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Customer Dashboard
+              </a>
+            </li>
           </ul>
         </li>
         <?php } ?>
