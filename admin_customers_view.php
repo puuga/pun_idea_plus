@@ -16,15 +16,13 @@
   <div class="container">
     <h1>
       <?= $s_customer_dashboard;?>
-      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addUserModal">
+      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addCustomerModal">
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
         <?= $s_add_customer; ?>
       </button>
     </h1>
     <?php
-      $users = getUsers($conn);
-      $normal_users = getUsers($conn,'normal');
-      $admin_users = getUsers($conn,'admin');
+      $customers = getCustomers($conn);
 
       function makeUserEditButton($user) {
         $button = "<button type='button' class='btn btn-warning' ";
@@ -104,22 +102,27 @@
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>name</th>
+                  <th>firstname</th>
+                  <th>lastname</th>
+                  <th>tel</th>
+                  <th>line</th>
                   <th>email</th>
-                  <th>password</th>
+                  <th>address</th>
                   <th>command</th>
                 </tr>
               </thead>
               <tbody>
                 <?php
-                for ($i=0; $i < count($admin_users); $i++) {
+                for ($i=0; $i < count($customers); $i++) {
                   echo "<tr>";
-                  echo "<td>".$admin_users[$i]["name"]."</td>";
-                  echo "<td>".$admin_users[$i]["email"]."</td>";
-                  echo "<td>".$admin_users[$i]["password"]."</td>";
+                  echo "<td>".$customers[$i]["firstname"]."</td>";
+                  echo "<td>".$customers[$i]["lastname"]."</td>";
+                  echo "<td>".$customers[$i]["tel"]."</td>";
+                  echo "<td>".$customers[$i]["line_id"]."</td>";
+                  echo "<td>".$customers[$i]["email"]."</td>";
+                  echo "<td>".$customers[$i]["address"]."</td>";
                   echo "<td>";
-                  echo makeUserEditButton($admin_users[$i])." ";
-                  echo makeUserDeleteButton($admin_users[$i]);
+                  echo " ";
                   echo "</td>";
                   echo "</tr>";
                 }
@@ -134,21 +137,44 @@
 
   </div>
 
-  <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel">
+  <div class="modal fade" id="addCustomerModal" tabindex="-1" role="dialog" aria-labelledby="addCustomerModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
+
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h4 class="modal-title" id="addUserModalLabel">Add new User</h4>
+          <h4 class="modal-title" id="addCustomerModalLabel">Add new Customer</h4>
         </div>
+
         <div class="modal-body">
-          <form action="admin_user_add_process.php" method="post" class="form-horizontal" name="addUser" id="addUser">
-            <input type="hidden" name="source" value="admin_users_view.php">
+          <form action="admin_customer_add_process.php" method="post" class="form-horizontal" name="addCustomer" id="addCustomer">
+            <input type="hidden" name="source" value="admin_customers_view.php">
 
             <div class="form-group">
-              <label for="inputName" class="col-md-2 control-label">Name</label>
+              <label for="inputFirstname" class="col-md-2 control-label">firstname</label>
               <div class="col-md-10">
-                <input type="text" class="form-control" name="inputName" id="inputName" placeholder="Name">
+                <input type="text" class="form-control" name="inputFirstname" id="inputFirstname" placeholder="firstname">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputLastname" class="col-md-2 control-label">lastname</label>
+              <div class="col-md-10">
+                <input type="text" class="form-control" name="inputLastname" id="inputLastname" placeholder="lastname">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputTel" class="col-md-2 control-label">tel</label>
+              <div class="col-md-10">
+                <input type="text" class="form-control" name="inputTel" id="inputTel" placeholder="tel">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputLine" class="col-md-2 control-label">line</label>
+              <div class="col-md-10">
+                <input type="text" class="form-control" name="inputLine" id="inputLine" placeholder="line">
               </div>
             </div>
 
@@ -160,36 +186,20 @@
             </div>
 
             <div class="form-group">
-              <label for="inputPassword" class="col-md-2 control-label">Password</label>
+              <label for="inputAddress" class="col-md-2 control-label">address</label>
               <div class="col-md-10">
-                <input type="password" class="form-control" name="inputPassword" id="inputPassword" placeholder="Password">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="col-md-2 control-label">Permission</label>
-              <div class="col-md-10">
-                <div class="radio radio-primary">
-                  <label>
-                    <input type="radio" name="optionsPermission" id="optionsPermissionNormal" value="100" checked="">
-                    Normal
-                  </label>
-                </div>
-                <div class="radio radio-primary">
-                  <label>
-                    <input type="radio" name="optionsPermission" id="optionsPermissionAdmin" value="0">
-                    Admin
-                  </label>
-                </div>
+                <textarea type="password" class="form-control" name="inputAddress" id="inputAddress" placeholder="address"></textarea>
               </div>
             </div>
 
           </form>
         </div>
+
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-info" form="addUser">Add</button>
+          <button type="submit" class="btn btn-info" form="addCustomer">Add</button>
         </div>
+
       </div>
     </div>
   </div>
@@ -197,10 +207,12 @@
   <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
+
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
           <h4 class="modal-title" id="editUserModalLabel">Edit User</h4>
         </div>
+
         <div class="modal-body">
           <form action="admin_user_edit_process.php" method="post" class="form-horizontal" name="editUser" id="editUser">
             <input type="hidden" name="inputIdEdit" id="inputIdEdit" value="">
@@ -247,6 +259,7 @@
 
           </form>
         </div>
+
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-info" form="editUser">

@@ -29,6 +29,38 @@
     return $users;
   }
 
+  function getCustomers($conn, $option='all', $key='') {
+    $customers = [];
+
+    switch ($option) {
+      case 'all':
+        $sql = "SELECT * FROM customers";
+        break;
+      default:
+        return $customers;
+        break;
+    }
+
+    if ( $key != '') {
+      $sql .= " WHERE firstname Like '%$key%' ";
+      $sql .= " OR lastname Like '%$key%' ";
+      $sql .= " OR tel Like '%$key%' ";
+      $sql .= " OR line_id Like '%$key%' ";
+      $sql .= " OR email Like '%$key%' ";
+    }
+
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+      // output data of each row
+      while($row = $result->fetch_assoc()) {
+          // echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
+          $customers[] = $row;
+      }
+    }
+
+    return $customers;
+  }
+
   function testInput($data) {
     $data = trim($data);
     $data = stripslashes($data);
