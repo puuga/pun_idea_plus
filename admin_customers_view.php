@@ -24,23 +24,25 @@
     <?php
       $customers = getCustomers($conn);
 
-      function makeUserEditButton($user) {
+      function makeCustomerEditButton($customer) {
         $button = "<button type='button' class='btn btn-warning' ";
-        $button .= "data-toggle='modal' data-target='#editUserModal' ";
-        $button .= "data-id='$user[id]' ";
-        $button .= "data-name='$user[name]' ";
-        $button .= "data-email='$user[email]' ";
-        $button .= "data-password='$user[password]' ";
-        $button .= "data-permission='$user[level]'>";
+        $button .= "data-toggle='modal' data-target='#editCustomerModal' ";
+        $button .= "data-id='$customer[id]' ";
+        $button .= "data-firstname='$customer[firstname]' ";
+        $button .= "data-lastname='$customer[lastname]' ";
+        $button .= "data-tel='$customer[tel]' ";
+        $button .= "data-line='$customer[line_id]' ";
+        $button .= "data-email='$customer[email]' ";
+        $button .= "data-address='$customer[address]' >";
         $button .= "<span class='glyphicon glyphicon-pencil' aria-hidden='true'></span>";
         $button .= "</button>";
 
         return $button;
       }
 
-      function makeUserDeleteButton($user) {
+      function makeCustomerDeleteButton($customer) {
         $button = "<button type='button' class='btn btn-danger' ";
-        $button .= "onclick='javascript:deleteUser($user[id])'>";
+        $button .= "onclick='javascript:deleteCustomer($customer[id])'>";
         $button .= "<span class='glyphicon glyphicon-remove' aria-hidden='true'></span>";
         $button .= "</button>";
 
@@ -54,7 +56,7 @@
         ?>
         <div class="row">
           <div class="alert alert-success" role="alert">
-            Add user success.
+            Add customer success.
           </div>
         </div>
         <?php
@@ -62,7 +64,7 @@
         ?>
         <div class="row">
           <div class="alert alert-success" role="alert">
-            Edit user success.
+            Edit customer success.
           </div>
         </div>
         <?php
@@ -70,7 +72,7 @@
         ?>
         <div class="row">
           <div class="alert alert-success" role="alert">
-            Delete user success.
+            Delete customer success.
           </div>
         </div>
         <?php
@@ -122,7 +124,7 @@
                   echo "<td>".$customers[$i]["email"]."</td>";
                   echo "<td>".$customers[$i]["address"]."</td>";
                   echo "<td>";
-                  echo " ";
+                  echo makeCustomerEditButton($customers[$i])." ".makeCustomerDeleteButton($customers[$i]);
                   echo "</td>";
                   echo "</tr>";
                 }
@@ -204,24 +206,45 @@
     </div>
   </div>
 
-  <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel">
+  <div class="modal fade" id="editCustomerModal" tabindex="-1" role="dialog" aria-labelledby="editCustomerModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
 
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h4 class="modal-title" id="editUserModalLabel">Edit User</h4>
+          <h4 class="modal-title" id="editCustomerModalLabel">Edit Customer</h4>
         </div>
 
         <div class="modal-body">
-          <form action="admin_user_edit_process.php" method="post" class="form-horizontal" name="editUser" id="editUser">
+          <form action="admin_customer_edit_process.php" method="post" class="form-horizontal" name="editCustomer" id="editCustomer">
             <input type="hidden" name="inputIdEdit" id="inputIdEdit" value="">
-            <input type="hidden" name="source" value="admin_users_view.php">
+            <input type="hidden" name="source" value="admin_customers_view.php">
 
             <div class="form-group">
-              <label for="inputName" class="col-md-2 control-label">Name</label>
+              <label for="inputFirstname" class="col-md-2 control-label">firstname</label>
               <div class="col-md-10">
-                <input type="text" class="form-control" name="inputName" id="inputNameEdit" placeholder="Name">
+                <input type="text" class="form-control" name="inputFirstname" id="inputFirstnameEdit" placeholder="firstname">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputLastname" class="col-md-2 control-label">lastname</label>
+              <div class="col-md-10">
+                <input type="text" class="form-control" name="inputLastname" id="inputLastnameEdit" placeholder="lastname">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputTel" class="col-md-2 control-label">tel</label>
+              <div class="col-md-10">
+                <input type="text" class="form-control" name="inputTel" id="inputTelEdit" placeholder="tel">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputLine" class="col-md-2 control-label">line</label>
+              <div class="col-md-10">
+                <input type="text" class="form-control" name="inputLine" id="inputLineEdit" placeholder="line">
               </div>
             </div>
 
@@ -233,27 +256,9 @@
             </div>
 
             <div class="form-group">
-              <label for="inputPassword" class="col-md-2 control-label">Password</label>
+              <label for="inputAddress" class="col-md-2 control-label">address</label>
               <div class="col-md-10">
-                <input type="password" class="form-control" name="inputPassword" id="inputPasswordEdit" placeholder="Password">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="col-md-2 control-label">Permission</label>
-              <div class="col-md-10">
-                <div class="radio radio-primary">
-                  <label>
-                    <input type="radio" name="optionsPermission" id="optionsPermissionNormalEdit" value="100" checked="">
-                    Normal
-                  </label>
-                </div>
-                <div class="radio radio-primary">
-                  <label>
-                    <input type="radio" name="optionsPermission" id="optionsPermissionAdminEdit" value="0">
-                    Admin
-                  </label>
-                </div>
+                <textarea type="password" class="form-control" name="inputAddress" id="inputAddressEdit" placeholder="address"></textarea>
               </div>
             </div>
 
@@ -262,7 +267,7 @@
 
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-info" form="editUser">
+          <button type="submit" class="btn btn-info" form="editCustomer">
             <span class='glyphicon glyphicon-pencil' aria-hidden='true'></span> Edit
           </button>
         </div>
@@ -271,32 +276,32 @@
   </div>
 
   <script type="text/javascript">
-    $('#editUserModal').on('show.bs.modal', function (event) {
+    $('#editCustomerModal').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget); // Button that triggered the modal
       var id = button.data('id'); // Extract info from data-* attributes
-      var name = button.data('name');
+      var firstname = button.data('firstname');
+      var lastname = button.data('lastname');
+      var tel = button.data('tel');
+      var line = button.data('line');
       var email = button.data('email');
-      var password = button.data('password');
-      var permission = button.data('permission');
+      var address = button.data('address');
       // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
       // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
       var modal = $(this);
       modal.find('#inputIdEdit').val(id);
-      modal.find('#inputNameEdit').val(name);
+      modal.find('#inputFirstnameEdit').val(firstname);
+      modal.find('#inputLastnameEdit').val(lastname);
+      modal.find('#inputTelEdit').val(tel);
+      modal.find('#inputLineEdit').val(line);
       modal.find('#inputEmailEdit').val(email);
-      modal.find('#inputPasswordEdit').val(password);
-      if ( permission===100 ) {
-        modal.find('#optionsPermissionNormalEdit').prop("checked", true);
-      } else {
-        modal.find('#optionsPermissionAdminEdit').prop("checked", true);
-      }
+      modal.find('#inputAddressEdit').val(address);
     });
 
-    function deleteUser(id) {
+    function deleteCustomer(id) {
       var c = confirm("Delete ?");
 
       if (c) {
-        window.location = "admin_user_delete_process.php?id="+id;
+        window.location = "admin_customer_delete_process.php?id="+id;
       }
 
     }

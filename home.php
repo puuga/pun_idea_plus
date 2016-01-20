@@ -8,13 +8,13 @@
   <head>
     <?php include 'include/include_head.php'; ?>
 
-    <title><?php echo $s_title; ?></title>
+    <title><?= $s_title; ?></title>
 
   </head>
   <body>
     <?php include "include/include_body.php" ?>
     <div class="container">
-      <h1>Hello, world!</h1>
+      <h1 class="text-center"><?= $s_title; ?></h1>
     </div>
 
     <!--  nev bar -->

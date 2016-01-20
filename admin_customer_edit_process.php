@@ -6,9 +6,10 @@
 ?>
 <?php
   // define variables and set to empty values
-  $inputFirstname = $inputLastname = $inputTel = $inputLine = $inputEmail = $inputAddress = "";
+  $inputId = $inputFirstname = $inputLastname = $inputTel = $inputLine = $inputEmail = $inputAddress = "";
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $inputId = testInput($_POST["inputIdEdit"]);
     $inputFirstname = testInput($_POST["inputFirstname"]);
     $inputLastname = testInput($_POST["inputLastname"]);
     $inputTel = testInput($_POST["inputTel"]);
@@ -17,6 +18,7 @@
     $inputAddress = testInput($_POST["inputAddress"]);
     $source = testInput($_POST["source"]);
 
+    $inputId = $conn->real_escape_string($inputId);
     $inputFirstname = $conn->real_escape_string($inputFirstname);
     $inputLastname = $conn->real_escape_string($inputLastname);
     $inputTel = $conn->real_escape_string($inputTel);
@@ -26,22 +28,28 @@
     $source = $conn->real_escape_string($source);
   }
 
-  $sql = "INSERT INTO customers (firstname, lastname, tel, line_id, email, address, created_at, updated_at)
-          VALUES ('$inputFirstname', '$inputLastname', '$inputTel', '$inputLine', '$inputEmail', '$inputAddress', now(), now() )";
+  $sql = "UPDATE customers
+          SET firstname='$inputFirstname',
+            lastname='$inputLastname',
+            tel='$inputTel',
+            line_id='$inputLine',
+            email='$inputEmail',
+            address='$inputAddress',
+            updated_at=now()
+          WHERE id=$inputId;";
 
   // echo $sql;
   if ($conn->query($sql) === TRUE) {
-    header("Location: $source?success=true&command=add");
+    header("Location: $source?success=true&command=edit");
     die();
   } else {
       // echo "Error: " . $sql . "<br>" . $conn->error;
     if ( strrpos($conn->error, "Duplicate") !== false ) {
       // echo "Duplicate";
-      header("Location: $source?success=false&command=add&reason=duplicate");
+      header("Location: $source?success=false&command=edit&reason=duplicate");
       die();
     } else {
       echo $conn->error;
-      die();
     }
   }
 ?>
