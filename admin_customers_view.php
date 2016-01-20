@@ -22,7 +22,12 @@
       </button>
     </h1>
     <?php
-      $customers = getCustomers($conn);
+      if ( isset($_GET['customersSearch']) ) {
+        $customersSearch = $_GET['customersSearch'];
+        $customers = getCustomers($conn, 'all', $customersSearch);
+      } else {
+        $customers = getCustomers($conn);
+      }
 
       function makeCustomerEditButton($customer) {
         $button = "<button type='button' class='btn btn-warning' ";
@@ -95,6 +100,26 @@
       }
     }
     ?>
+
+    <br/>
+
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <form class="form-inline">
+          <div class="form-group">
+            <label class="sr-only" for="customersSearch">Search</label>
+            <input type="text" class="form-control" id="customersSearch" name="customersSearch" placeholder="Search">
+          </div>
+
+          <button type="submit" class="btn btn-default">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            Search
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <br/>
 
     <div class="row">
 
